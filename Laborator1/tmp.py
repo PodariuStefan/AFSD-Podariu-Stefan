@@ -1,8 +1,6 @@
-nrGloburi = white + red + green
+def ex_1275(x, y):
+    number = x + y
+    str(number)
+    number[-1]
 
-white = if -2 <= int(input("Globuri able")) <= 1000
-    
-
-
-print(nrGloburi)
-
+ex_1275(1, 2)
