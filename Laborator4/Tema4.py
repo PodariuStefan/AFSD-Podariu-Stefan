@@ -43,5 +43,3 @@ if incercari_ramase == 0:
     print(f"Ai piredut! Cuvantul era: {cuvant_de_ghicit}\n")
 else:
     print(f"Ai castigat, cuvantul era : {cuvant_de_ghicit} si ti-au mai ramas {incercari_ramase}.!\n")
-
-
