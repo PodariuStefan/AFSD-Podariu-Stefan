@@ -13,6 +13,7 @@ litere_incercate = []
 
 print ("Ghiceste cuvantul: " + str(progres) + "\n")
 
+
 while incercari_ramase != 0 and progres.count("_") != 0:
     incercare = str(input("Ghiceste litera: "))
     if len(incercare) != 1:

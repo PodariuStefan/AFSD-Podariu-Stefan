@@ -7,6 +7,7 @@
 #    print(name + " " + "which is" + " " + age + " " + "is a new patient!")
 # ------------------------------------------------------------------------------ #
 
+
 #name = input("Show me what you got: ")
 #print("Hello " + name)
 # ------------------------------------------------------------------------------ #
@@ -35,7 +36,28 @@
 #print("Done!")
 
 #assign two variables one is the mass and one is the weight
+
+
+Anticariat = {'Mastodont':256, 'Riga Crypto și lapona Enigel':300, 'Iulius Cezar': 23}
+
+i = 1
+while i <= 3:
+    match i:
+        case 1:
+            print("Helelujah!")
+        case 2:
+            print("YESSSSSSSSSs")
+        case 3:
+            print("Not so fast, Bucko!")
+    i += 1
+
+
+
+
+
 weight = int(input("Please enter your weight (in Newton): "))
+
+
 
 if 480 < weight < 2500:
     print("Please chose a unit of measurement!")
