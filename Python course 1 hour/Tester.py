@@ -1,14 +1,8 @@
-def reverse_string(arr):
-    for i in range(len(arr) - 1, -1, -1):
-        print(arr[i], end="")
+import random
+def column_generator(num):
+    random_numbers = []
+    for i in range(8):
+        random_numbers.append(random.randint(10, 200))
+    return print(random_numbers)
 
-reverse_string("onomatopee")
-
-def rangee(start =0, end, step = 1):
-    range_list = []
-    while start <= end:
-        range_list.append(start)
-        start += step
-    return range_list
-
-rangee(6)
+column_generator(6)
