@@ -8,14 +8,15 @@ def is_valid(solution):
         (solution.count("@!#$") < 2)):
         return True
 
-def backtrack(solution, index):
+def backtrack(solution, count =0):
     if len(solution) == target_len and is_valid(solution):
         hash_pass = get_hash(solution)
         if hash_pass == target:
             print(f"Parola găsită: {solution}\n"
-                  f"Număr apeluri recursive: {index}")
+                  f"Număr apeluri recursive: {count}")
             exit(1)
         return
 
     for character in viable_chars:
-        backtrack(solution + character, index + 1)
+        count += 1
+        backtrack(solution + character, count)
