@@ -1,0 +1,16 @@
+{
+  "cash":[
+    {"value": 0.01, "amount": 10},
+    {"value": 0.05, "amount": 15},
+    {"value": 0.10, "amount": 9},
+    {"value": 0.50, "amount": 10},
+    {"value": 1.00, "amount": 14},
+    {"value": 5.00, "amount": 18},
+    {"value": 10.00, "amount": 12},
+    {"value": 20.00, "amount": 29},
+    {"value": 50.00, "amount": 21},
+    {"value": 100.00, "amount": 23},
+    {"value": 200.00, "amount": 13},
+    {"value": 500.00, "amount": 9}
+  ]
+}

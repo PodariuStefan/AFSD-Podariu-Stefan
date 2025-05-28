@@ -1,0 +1,10 @@
+[
+  {
+    "id": int,
+    "nume": string,
+    "note": {
+      "materie 1": list
+      "materie 2": list
+    }
+  {
+]

@@ -1,0 +1,52 @@
+{
+  "cash": [
+    {
+      "value": 0.01,
+      "amount": 0
+    },
+    {
+      "value": 0.05,
+      "amount": 0
+    },
+    {
+      "value": 0.1,
+      "amount": 0
+    },
+    {
+      "value": 0.5,
+      "amount": 6
+    },
+    {
+      "value": 1.0,
+      "amount": 3
+    },
+    {
+      "value": 5.0,
+      "amount": 17
+    },
+    {
+      "value": 10.0,
+      "amount": 8
+    },
+    {
+      "value": 20.0,
+      "amount": 29
+    },
+    {
+      "value": 50.0,
+      "amount": 21
+    },
+    {
+      "value": 100.0,
+      "amount": 23
+    },
+    {
+      "value": 200.0,
+      "amount": 13
+    },
+    {
+      "value": 500.0,
+      "amount": 9
+    }
+  ]
+}

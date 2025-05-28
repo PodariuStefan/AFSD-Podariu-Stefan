@@ -1,0 +1,14 @@
+{
+  "products": [
+    {"name": "bread",  "price": 5.50},
+    {"name": "milk", "price":  8.80},
+    {"name": "champagne", "price":  37.25},
+    {"name": "butter", "price":  12.37},
+    {"name": "chocolate", "price":  14.60},
+    {"name": "cereal", "price":  10.00},
+    {"name": "ground beef", "price":  40.23},
+    {"name": "TV", "price":  900.99},
+    {"name": "pasta", "price":  8.56},
+    {"name": "cucumber", "price":  1.25}
+  ]
+}
