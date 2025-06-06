@@ -6,7 +6,7 @@
     },
     {
       "value": 0.05,
-      "amount": 0
+      "amount": 9
     },
     {
       "value": 0.1,
@@ -14,11 +14,11 @@
     },
     {
       "value": 0.5,
-      "amount": 6
+      "amount": 3
     },
     {
       "value": 1.0,
-      "amount": 3
+      "amount": 0
     },
     {
       "value": 5.0,
@@ -26,7 +26,7 @@
     },
     {
       "value": 10.0,
-      "amount": 8
+      "amount": 9
     },
     {
       "value": 20.0,
