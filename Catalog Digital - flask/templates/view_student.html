@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}{{ student.nume }} {{ student.prenume }} - Catalog Studenți{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="display-6 fw-bold text-info">
+                    <i class="fas fa-user-graduate me-3"></i>Detalii Student
+                </h1>
+                <p class="lead text-muted">Informații complete despre student</p>
+            </div>
+
+            <!-- Student Details Card -->
+            <div class="card shadow-lg">
+                <div class="card-header bg-info text-white">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="avatar bg-white text-info rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                                {{ student.nume[0].upper() }}{{ student.prenume[0].upper() }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-title mb-1">{{ student.nume }} {{ student.prenume }}</h4>
+                            <p class="card-text mb-0">
+                                <i class="fas fa-id-badge me-1"></i>ID: {{ student.id }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <!-- Informații de bază -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Informații de Bază
+                            </h5>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td class="fw-bold text-muted" style="width: 40%;">
+                                            <i class="fas fa-user me-2"></i>Nume:
+                                        </td>
+                                        <td>{{ student.nume }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-muted">
+                                            <i class="fas fa-user me-2"></i>Prenume:
+                                        </td>
+                                        <td>{{ student.prenume }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-muted">
+                                            <i class="fas fa-book me-2"></i>Materie:
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary fs-6">{{ student.materie }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-muted">
+                                            <i class="fas fa-star me-2"></i>Nota:
+                                        </td>
+                                        <td>
+                                            <span class="badge fs-5
+                                                {% if student.nota >= 9 %}bg-success
+                                                {% elif student.nota >= 7 %}bg-warning text-dark
+                                                {% elif student.nota >= 5 %}bg-info
+                                                {% else %}bg-danger
+                                                {% endif %}">
+                                                {{ student.nota }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Informații temporale -->
+                        <div class="col-md-6 mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-clock me-2"></i>Istoric
+                            </h5>
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td class="fw-bold text-muted" style="width: 50%;">
+                                            <i class="fas fa-calendar-plus me-2"></i>Data adăugării:
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success">
+                                                {{ student.data_adaugare }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% if student.data_modificare %}
+                                    <tr>
+                                        <td class="fw-bold text-muted">
+                                            <i class="fas fa-calendar-edit me-2"></i>Ultima modificare:
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-warning text-dark">
+                                                {{ student.data_modificare }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td class="fw-bold text-muted">
+                                            <i class="fas fa-calendar-edit me-2"></i>Modificări:
+                                        </td>
+                                        <td>
+                                            <span class="text-muted fst-italic">Nicio modificare</span>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluare notă -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-chart-bar me-2"></i>Evaluare Performanță
+                            </h5>
+                            <div class="row text-center">
+                                <div class="col-md-3 mb-3">
+                                    <div class="card 
+                                        {% if student.nota >= 9 %}border-success
+                                        {% elif student.nota >= 7 %}border-warning
+                                        {% elif student.nota >= 5 %}border-info
+                                        {% else %}border-danger
+                                        {% endif %}">
+                                        <div class="card-body">
+                                            <h2 class="
+                                                {% if student.nota >= 9 %}text-success
+                                                {% elif student.nota >= 7 %}text-warning
+                                                {% elif student.nota >= 5 %}text-info
+                                                {% else %}text-danger
+                                                {% endif %}">
+                                                {{ student.nota }}
+                                            </h2>
+                                            <p class="card-text small text-muted">Nota obținută</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Clasificare:</h6>
+                                            {% if student.nota >= 9 %}
+                                                <span class="badge bg-success fs-6">Excelent</span>
+                                                <p class="card-text mt-2 small">Performanță excepțională! Student foarte bun.</p>
+                                            {% elif student.nota >= 7 %}
+                                                <span class="badge bg-warning text-dark fs-6">Bine</span>
+                                                <p class="card-text mt-2 small">Performanță bună. Poate fi îmbunătățită.</p>
+                                            {% elif student.nota >= 5 %}
+                                                <span class="badge bg-info fs-6">Satisfăcător</span>
+                                                <p class="card-text mt-2 small">Performanță acceptabilă. Necesită mai multă atenție.</p>
+                                            {% else %}
+                                                <span class="badge bg-danger fs-6">Nesatisfăcător</span>
+                                                <p class="card-text mt-2 small">Performanță slabă. Necesită sprijin suplimentar.</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h6 class="text-muted mb-2">Progres față de nota maximă:</h6>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar 
+                                    {% if student.nota >= 9 %}bg-success
+                                    {% elif student.nota >= 7 %}bg-warning
+                                    {% elif student.nota >= 5 %}bg-info
+                                    {% else %}bg-danger
+                                    {% endif %}" 
+                                    role="progressbar" 
+                                    style="width: {{ (student.nota / 10) * 100 }}%"
+                                    aria-valuenow="{{ student.nota }}" 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="10">
+                                    {{ student.nota }}/10 ({{ "%.1f"|format((student.nota / 10) * 100) }}%)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-lg me-md-2">
+                            <i class="fas fa-arrow-left me-2"></i>Înapoi la Lista
+                        </a>
+                        <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-warning btn-lg me-md-2">
+                            <i class="fas fa-edit me-2"></i>Editează
+                        </a>
+                        <button type="button" 
+                                class="btn btn-danger btn-lg" 
+                                onclick="confirmDelete({{ student.id }}, '{{ student.nume }} {{ student.prenume }}')">
+                            <i class="fas fa-trash me-2"></i>Șterge
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    Confirmare Ștergere
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ești sigur că vrei să ștergi studentul <strong id="studentName"></strong>?</p>
+                <p class="text-muted">Această acțiune nu poate fi anulată.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Anulează
+                </button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Șterge
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function confirmDelete(studentId, studentName) {
+    document.getElementById('studentName').textContent = studentName;
+    document.getElementById('deleteForm').action = '/delete_student/' + studentId;
+    
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    deleteModal.show();
+}
+</script>
+{% endblock %}

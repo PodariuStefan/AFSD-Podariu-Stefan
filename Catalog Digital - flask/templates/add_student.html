@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Adaugă Student - Catalog Studenți{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="display-6 fw-bold text-primary">
+                    <i class="fas fa-user-plus me-3"></i>Adaugă Student Nou
+                </h1>
+                <p class="lead text-muted">Completează formularul pentru a adăuga un student în catalog</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-form me-2"></i>Formulár Student
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" id="addStudentForm">
+                        <div class="row">
+                            <!-- Nume -->
+                            <div class="col-md-6 mb-3">
+                                <label for="nume" class="form-label fw-bold">
+                                    <i class="fas fa-user me-2 text-primary"></i>Nume *
+                                </label>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="nume" 
+                                       name="nume" 
+                                       required 
+                                       placeholder="Introduceți numele"
+                                       value="{{ request.form.nume if request.form.nume }}">
+                                <div class="form-text">Numele de familie al studentului</div>
+                            </div>
+
+                            <!-- Prenume -->
+                            <div class="col-md-6 mb-3">
+                                <label for="prenume" class="form-label fw-bold">
+                                    <i class="fas fa-user me-2 text-primary"></i>Prenume *
+                                </label>
+                                <input type="text" 
+                                       class="form-control form-control-lg" 
+                                       id="prenume" 
+                                       name="prenume" 
+                                       required 
+                                       placeholder="Introduceți prenumele"
+                                       value="{{ request.form.prenume if request.form.prenume }}">
+                                <div class="form-text">Prenumele studentului</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Materie -->
+                            <div class="col-md-6 mb-3">
+                                <label for="materie" class="form-label fw-bold">
+                                    <i class="fas fa-book me-2 text-primary"></i>Materie *
+                                </label>
+                                <select class="form-select form-select-lg" 
+                                        id="materie" 
+                                        name="materie" 
+                                        required>
+                                    <option value="">Selectează materia</option>
+                                    <option value="Matematică" {{ 'selected' if request.form.materie == 'Matematică' }}>Matematică</option>
+                                    <option value="Română" {{ 'selected' if request.form.materie == 'Română' }}>Română</option>
+                                    <option value="Fizică" {{ 'selected' if request.form.materie == 'Fizică' }}>Fizică</option>
+                                    <option value="Chimie" {{ 'selected' if request.form.materie == 'Chimie' }}>Chimie</option>
+                                    <option value="Biologie" {{ 'selected' if request.form.materie == 'Biologie' }}>Biologie</option>
+                                    <option value="Istorie" {{ 'selected' if request.form.materie == 'Istorie' }}>Istorie</option>
+                                    <option value="Geografie" {{ 'selected' if request.form.materie == 'Geografie' }}>Geografie</option>
+                                    <option value="Informatică" {{ 'selected' if request.form.materie == 'Informatică' }}>Informatică</option>
+                                    <option value="Engleză" {{ 'selected' if request.form.materie == 'Engleză' }}>Engleză</option>
+                                    <option value="Franceză" {{ 'selected' if request.form.materie == 'Franceză' }}>Franceză</option>
+                                </select>
+                                <div class="form-text">Materia la care se acordă nota</div>
+                            </div>
+
+                            <!-- Nota -->
+                            <div class="col-md-6 mb-3">
+                                <label for="nota" class="form-label fw-bold">
+                                    <i class="fas fa-star me-2 text-primary"></i>Nota *
+                                </label>
+                                <input type="number" 
+                                       class="form-control form-control-lg" 
+                                       id="nota" 
+                                       name="nota" 
+                                       min="1" 
+                                       max="10" 
+                                       step="0.01" 
+                                       required 
+                                       placeholder="1.00 - 10.00"
+                                       value="{{ request.form.nota if request.form.nota }}">
+                                <div class="form-text">Nota trebuie să fie între 1 și 10</div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-lg me-md-2">
+                                        <i class="fas fa-arrow-left me-2"></i>Înapoi
+                                    </a>
+                                    <button type="reset" class="btn btn-outline-warning btn-lg me-md-2" onclick="clearForm()">
+                                        <i class="fas fa-undo me-2"></i>Reset
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="fas fa-save me-2"></i>Adaugă Student
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card mt-4 border-info">
+                <div class="card-body bg-light">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-info-circle fa-2x text-info"></i>
+                        </div>
+                        <div class="col">
+                            <h6 class="card-title mb-1">Informații importante:</h6>
+                            <ul class="mb-0 small text-muted">
+                                <li>Toate câmpurile marcate cu * sunt obligatorii</li>
+                                <li>Nota trebuie să fie un număr între 1 și 10</li>
+                                <li>Poți folosa zecimale (ex: 8.50)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function clearForm() {
+    document.getElementById('addStudentForm').reset();
+    
+    // Show success message
+    setTimeout(function() {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-info alert-dismissible fade show';
+        alertDiv.innerHTML = `
+            <i class="fas fa-info-circle me-2"></i>
+            Formularul a fost resetat!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        const container = document.querySelector('.container');
+        container.insertBefore(alertDiv, container.firstChild);
+        
+        // Auto-dismiss after 3 seconds
+        setTimeout(function() {
+            alertDiv.remove();
+        }, 3000);
+    }, 100);
+}
+
+// Form validation
+document.getElementById('addStudentForm').addEventListener('submit', function(e) {
+    const nota = document.getElementById('nota').value;
+    if (nota < 1 || nota > 10) {
+        e.preventDefault();
+        alert('Nota trebuie să fie între 1 și 10!');
+        return false;
+    }
+});
+
+// Real-time validation for nota
+document.getElementById('nota').addEventListener('input', function() {
+    const value = parseFloat(this.value);
+    const feedbackDiv = this.nextElementSibling;
+    
+    if (value < 1 || value > 10) {
+        this.classList.add('is-invalid');
+        feedbackDiv.className = 'invalid-feedback';
+        feedbackDiv.textContent = 'Nota trebuie să fie între 1 și 10';
+    } else {
+        this.classList.remove('is-invalid');
+        this.classList.add('is-valid');
+        feedbackDiv.className = 'form-text';
+        feedbackDiv.textContent = 'Nota trebuie să fie între 1 și 10';
+    }
+});
+</script>
+{% endblock %}

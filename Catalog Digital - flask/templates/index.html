@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Catalog Studenți - Acasă{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Header Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-5 fw-bold text-primary">
+                        <i class="fas fa-users me-3"></i>Catalog Studenți
+                    </h1>
+                    <p class="lead text-muted">Gestionează studenții și notele lor</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('add_student') }}" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus me-2"></i>Adaugă Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x mb-3"></i>
+                    <h3 class="card-title">{{ students|length }}</h3>
+                    <p class="card-text">Total Studenți</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x mb-3"></i>
+                    <h3 class="card-title">
+                        {% if students %}
+                            {{ "%.2f"|format(students|map(attribute='nota')|sum / students|length) }}
+                        {% else %}
+                            0.00
+                        {% endif %}
+                    </h3>
+                    <p class="card-text">Media Generală</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x mb-3"></i>
+                    <h3 class="card-title">
+                        {{ students|map(attribute='materie')|unique|list|length }}
+                    </h3>
+                    <p class="card-text">Materii</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Students Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-list me-2"></i>Lista Studenților
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if students %}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">
+                                            <i class="fas fa-user me-1"></i>Nume Complet
+                                        </th>
+                                        <th scope="col">
+                                            <i class="fas fa-book me-1"></i>Materie
+                                        </th>
+                                        <th scope="col">
+                                            <i class="fas fa-star me-1"></i>Nota
+                                        </th>
+                                        <th scope="col">
+                                            <i class="fas fa-calendar me-1"></i>Data Adăugării
+                                        </th>
+                                        <th scope="col" class="text-center">
+                                            <i class="fas fa-cogs me-1"></i>Acțiuni
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                    <tr>
+                                        <th scope="row">{{ loop.index }}</th>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    {{ student.nume[0].upper() }}{{ student.prenume[0].upper() }}
+                                                </div>
+                                                <div>
+                                                    <strong>{{ student.nume }} {{ student.prenume }}</strong>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">{{ student.materie }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge 
+                                                {% if student.nota >= 9 %}bg-success
+                                                {% elif student.nota >= 7 %}bg-warning
+                                                {% else %}bg-danger
+                                                {% endif %}">
+                                                {{ student.nota }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">
+                                                {{ student.data_adaugare.split(' ')[0] }}
+                                            </small>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ url_for('view_student', student_id=student.id) }}" 
+                                                   class="btn btn-outline-info btn-sm" 
+                                                   title="Vezi detalii">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ url_for('edit_student', student_id=student.id) }}" 
+                                                   class="btn btn-outline-warning btn-sm" 
+                                                   title="Editează">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" 
+                                                        class="btn btn-outline-danger btn-sm" 
+                                                        title="Șterge"
+                                                        onclick="confirmDelete({{ student.id }}, '{{ student.nume }} {{ student.prenume }}')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-user-slash fa-4x text-muted mb-3"></i>
+                            <h4 class="text-muted">Nu există studenți în catalog</h4>
+                            <p class="text-muted">Adaugă primul student pentru a începe!</p>
+                            <a href="{{ url_for('add_student') }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Adaugă Student
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    Confirmare Ștergere
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ești sigur că vrei să ștergi studentul <strong id="studentName"></strong>?</p>
+                <p class="text-muted">Această acțiune nu poate fi anulată.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Anulează
+                </button>
+                <form id="deleteForm" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Șterge
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function confirmDelete(studentId, studentName) {
+    document.getElementById('studentName').textContent = studentName;
+    document.getElementById('deleteForm').action = '/delete_student/' + studentId;
+    
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    deleteModal.show();
+}
+</script>
+{% endblock %}
